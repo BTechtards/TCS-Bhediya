@@ -1,12 +1,10 @@
-import 'dotenv/config';
-import { Client } from 'discord.js';
+import * as dotenv from "dotenv";
+import { Bot } from "./structures/client"
 
-const client = new Client({
-    intents: ['Guilds', 'GuildMessages', 'GuildMembers', 'MessageContent'],
+dotenv.config();
+
+export const client = new Bot({
+	intents: [1, 512],
 });
 
-client.on('ready', (c) => {
-    console.log(`${c.user.username} is online.`);
-});
-
-client.login(process.env.TOKEN);
+client.start();
