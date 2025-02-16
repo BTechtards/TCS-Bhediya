@@ -1,0 +1,22 @@
+{
+    "name": "tcs-ninja",
+    "version": "1.0.0",
+    "description": "Discord bot for the /r/BTechtards server",
+    "main": "dist/index.js",
+    "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "build": "tsc",
+        "start": "node ."
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "discord.js": "^14.13.0",
+        "dotenv": "^16.3.1"
+    },
+    "devDependencies": {
+        "@types/node": "^20.6.3",
+        "tsx": "^3.12.10"
+    }
+}
