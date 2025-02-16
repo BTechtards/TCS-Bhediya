@@ -1,7 +1,7 @@
 import { ApplicationCommandDataResolvable, Client, ClientOptions, Collection, ClientEvents } from "discord.js";
 import { glob } from "glob";
-import { CommandType } from "../typings/command";
-import { RegisterCommandsOptions } from "../typings/client";
+import { CommandType } from "../types/command";
+import { RegisterCommandsOptions } from "../types/client";
 import { sendHook } from "../utils/functions";
 import { Event } from "./event";
 import log from "../utils/logger";

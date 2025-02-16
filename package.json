@@ -1,10 +1,13 @@
 {
-	"name": "TCS Ninja",
+	"name": "tcs-ninja",
 	"version": "1.0.0",
-	"description": "BtechTards sex bot",
-	"main": "src/index.ts",
+	"description": "r/BTechTards Discord Bot",
+	"main": "dist/index.js",
 	"scripts": {
-		"build": "pnpm tsc"
+        "dev": "tsx watch src/index.ts",
+        "build": "tsc && resolve-tspaths",
+        "start": "node .",
+		"typecheck": "tsc --noEmit"
 	},
 	"keywords": [
 		"discord-bot",
@@ -21,11 +24,8 @@
 	"devDependencies": {
 		"@types/glob": "^8.1.0",
 		"@types/node": "^22.13.1",
-		"@typescript-eslint/eslint-plugin": "^8.23.0",
-		"@typescript-eslint/parser": "^8.23.0",
-		"eslint": "^9.19.0",
-		"nodemon": "^3.1.9",
-		"ts-node": "^10.9.2",
+		"resolve-tspaths": "^0.8.23",
+		"tsx": "^4.19.2",
 		"typescript": "^5.7.3"
 	}
 }

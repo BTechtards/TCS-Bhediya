@@ -1,5 +1,12 @@
-node_modules/
-data/
-.env
+# Build outputs
 dist/
-yarn-error.log
+
+# Node modules
+node_modules/
+
+# Local files
+data/
+.env*
+!.env.example
+*.local
+

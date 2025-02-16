@@ -1,4 +1,4 @@
-import Discord from "discord.js";
+import { WebhookClient, EmbedBuilder } from "discord.js";
 
 export function sendHook(
 	webhook: string,
@@ -7,8 +7,8 @@ export function sendHook(
 	footertxt: string,
 	footericon: string,
 ) {
-	const hook = new Discord.WebhookClient({ url: webhook });
-	const embed = new Discord.EmbedBuilder()
+	const hook = new WebhookClient({ url: webhook });
+	const embed = new EmbedBuilder()
 		.setTitle(title)
 		.setDescription(desc)
 		.setFooter({ text: footertxt, iconURL: footericon })
