@@ -20,9 +20,11 @@ export default new Event("interactionCreate", async (interaction) => {
 				});
 			} else if (option.value) args.push(option.value);
 		}
-		interaction.member = interaction.guild.members.cache.get(
-			interaction.user.id,
-		);
+
+		if (interaction.guild) {
+			const member = interaction.guild.members.cache.get(interaction.user.id);
+			interaction.member = member ?? null;
+		}
 
 		cmd.run({
 			args: interaction.options as CommandInteractionOptionResolver,

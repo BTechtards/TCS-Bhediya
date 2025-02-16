@@ -54,8 +54,8 @@ export class Bot extends Client {
 				error_hook,
 				"uncaughtException",
 				"```" + err.stack + "```",
-				this.user.username,
-				this.user.avatarURL(),
+				this.user!.username,
+				this.user!.displayAvatarURL(),
 			);
 		});
 	}
