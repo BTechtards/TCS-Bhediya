@@ -20,6 +20,9 @@
         "dev": {
             "persistent": true,
             "cache": false
+        },
+        "db#migrate": {
+            "dependsOn": []
         }
     }
 }

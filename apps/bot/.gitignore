@@ -10,3 +10,4 @@ data/
 !.env.example
 *.local
 .DS_Store
+.turbo
