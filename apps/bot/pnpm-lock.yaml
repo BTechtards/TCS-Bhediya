@@ -7,15 +7,6 @@ settings:
 importers:
 
   .:
-    devDependencies:
-      bot:
-        specifier: ^0.0.3
-        version: 0.0.3
-      turbo:
-        specifier: ^2.4.2
-        version: 2.4.2
-
-  apps/bot:
     dependencies:
       axios:
         specifier: ^1.7.9
@@ -372,11 +363,6 @@ packages:
     resolution: {integrity: sha512-7rAxByjUMqQ3/bHJy7D6OGXvx/MMc4IqBn/X0fcM1QUcAItpZrBEYhWGem+tzXH90c+G01ypMcYJBO9Y30203g==}
     engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
 
-  bot@0.0.3:
-    resolution: {integrity: sha512-MQHMoBOZFmoi0DzcI2S8kQ7DuZtXE6wcSeRzAHXPDkDQgqZ1satcZyzH6l7Uw+OhJg9IBycOnphXSDE8h6+W8A==}
-    engines: {node: '>= 0.6.0'}
-    hasBin: true
-
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
@@ -407,10 +393,6 @@ packages:
 
   color@3.2.1:
     resolution: {integrity: sha512-aBl7dZI9ENN6fUGC7mWpMTPNHmWUSNan9tuWN6ahh5ZLNk9baLJOnSMlrQkHcrfFgz2/RigjUVAjdx36VcemKA==}
-
-  colors@0.6.0-1:
-    resolution: {integrity: sha512-ZaQtySU44lmZRP6M+CovFWnu7QnxLTsr/3wURb7BCOV1/gKjUb/3uu3NsLR+fvA2Jfs6sNfwcVq0Tp2mWYbuxg==}
-    engines: {node: '>=0.1.90'}
 
   colorspace@1.1.4:
     resolution: {integrity: sha512-BgvKJiuVu1igBUF2kEjRCZXol6wiiGbY5ipL/oVPwm0BL9sIpMIzM8IK7vwuxIIzOXMV3Ey5w+vxhm0rR/TN8w==}
@@ -899,40 +881,6 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  turbo-darwin-64@2.4.2:
-    resolution: {integrity: sha512-HFfemyWB60CJtEvVQj9yby5rkkWw9fLAdLtAPGtPQoU3tKh8t/uzCAZKso2aPVbib9vGUuGbPGoGpaRXdVhj5g==}
-    cpu: [x64]
-    os: [darwin]
-
-  turbo-darwin-arm64@2.4.2:
-    resolution: {integrity: sha512-uwSx1dsBSSFeEC0nxyx2O219FEsS/haiESaWwE9JI8mHkQK61s6w6fN2G586krKxyNam4AIxRltleL+O2Em94g==}
-    cpu: [arm64]
-    os: [darwin]
-
-  turbo-linux-64@2.4.2:
-    resolution: {integrity: sha512-Fy/uL8z/LAYcPbm7a1LwFnTY9pIi5FAi12iuHsgB7zHjdh4eeIKS2NIg4nroAmTcUTUZ0/cVTo4bDOCUcS3aKw==}
-    cpu: [x64]
-    os: [linux]
-
-  turbo-linux-arm64@2.4.2:
-    resolution: {integrity: sha512-AEA0d8h5W/K6iiXfEgiNwWt0yqRL1NpBs8zQCLdc4/L7WeYeJW3sORWX8zt7xhutF/KW9gTm8ehKpiK6cCIsAA==}
-    cpu: [arm64]
-    os: [linux]
-
-  turbo-windows-64@2.4.2:
-    resolution: {integrity: sha512-CybtIZ9wRgnnNFVN9En9G+rxsO+mwU81fvW4RpE8BWyNEkhQ8J28qYf4PaimueMxGHHp/28i/G7Kcdn2GAWG0g==}
-    cpu: [x64]
-    os: [win32]
-
-  turbo-windows-arm64@2.4.2:
-    resolution: {integrity: sha512-7V0yneVPL8Y3TgrkUIjw7Odmwu1tHnyIiPHFM7eFcA7U+H6hPXyCxge7nC3wOKfjhKCQqUm+Vf/k6kjmLz5G4g==}
-    cpu: [arm64]
-    os: [win32]
-
-  turbo@2.4.2:
-    resolution: {integrity: sha512-Qxi0ioQCxMRUCcHKHZkTnYH8e7XCpNfg9QiJcyfWIc+ZXeaCjzV5rCGlbQlTXMAtI8qgfP8fZADv3CFtPwqdPQ==}
-    hasBin: true
-
   type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
@@ -1242,10 +1190,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  bot@0.0.3:
-    dependencies:
-      colors: 0.6.0-1
-
   braces@3.0.3:
     dependencies:
       fill-range: 7.1.1
@@ -1279,8 +1223,6 @@ snapshots:
     dependencies:
       color-convert: 1.9.3
       color-string: 1.9.1
-
-  colors@0.6.0-1: {}
 
   colorspace@1.1.4:
     dependencies:
@@ -1813,33 +1755,6 @@ snapshots:
       get-tsconfig: 4.10.0
     optionalDependencies:
       fsevents: 2.3.3
-
-  turbo-darwin-64@2.4.2:
-    optional: true
-
-  turbo-darwin-arm64@2.4.2:
-    optional: true
-
-  turbo-linux-64@2.4.2:
-    optional: true
-
-  turbo-linux-arm64@2.4.2:
-    optional: true
-
-  turbo-windows-64@2.4.2:
-    optional: true
-
-  turbo-windows-arm64@2.4.2:
-    optional: true
-
-  turbo@2.4.2:
-    optionalDependencies:
-      turbo-darwin-64: 2.4.2
-      turbo-darwin-arm64: 2.4.2
-      turbo-linux-64: 2.4.2
-      turbo-linux-arm64: 2.4.2
-      turbo-windows-64: 2.4.2
-      turbo-windows-arm64: 2.4.2
 
   type-is@1.6.18:
     dependencies:
