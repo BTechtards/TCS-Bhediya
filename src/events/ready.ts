@@ -1,10 +1,9 @@
-import { Event } from "../structures/event";
-import { client } from "../index";
-import log from "../utils/logger";
 import { ActivityType } from "discord.js";
+import { Event } from "@/structures/event";
+import { logger } from "@/utils/logger";
 
-export default new Event("ready", () => {
-	log.warn(`Logged in as ${client.user?.tag}.`);
+export default new Event("ready", (d) => (client) => {
+	logger.info(`Logged in as ${client.user?.tag}`);
 
 	let memberCount = 0;
 	client.guilds.cache.forEach(guild => {

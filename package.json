@@ -4,9 +4,9 @@
 	"description": "r/BTechTards Discord Bot",
 	"main": "dist/index.js",
 	"scripts": {
-        "dev": "tsx watch src/index.ts",
-        "build": "tsc && resolve-tspaths",
-        "start": "node .",
+		"dev": "tsx watch src/index.ts",
+		"build": "tsc && resolve-tspaths",
+		"start": "node .",
 		"typecheck": "tsc --noEmit"
 	},
 	"keywords": [
@@ -18,8 +18,8 @@
 	"dependencies": {
 		"discord.js": "^14.17.3",
 		"dotenv": "^16.4.7",
-		"glob": "^11.0.1",
-		"winston": "^3.17.0"
+		"winston": "^3.17.0",
+		"zod": "^3.24.2"
 	},
 	"devDependencies": {
 		"@types/glob": "^8.1.0",

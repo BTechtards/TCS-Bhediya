@@ -1,48 +1,71 @@
-import { CommandInteractionOptionResolver, MessageFlags } from "discord.js";
-import { Event } from "../structures/event";
-import { ExtendedInteraction } from "../types/command";
-import { client } from "../index";
+import { Event } from "@/structures/event";
+import { CommandDependencies } from '@/types/command';
+import { logger } from '@/utils/logger';
 
-export default new Event("interactionCreate", async (interaction) => {
-	if (interaction.isCommand()) {
-		const cmd = client.commands.get(interaction.commandName);
+export default new Event("interactionCreate", (d) => async (interaction) => {
+	const cmdDeps: CommandDependencies = {
+		client: d.client
+	};
+
+	if (interaction.isChatInputCommand()) {
+		const cmd = d.client.slashCommands.get(interaction.commandName);
 		if (!cmd) {
-			return interaction.reply({ content: "An error has occured " });
+			return interaction.reply({ content: "Unable to resolve command name", options: {
+				flags: 'Ephemeral'
+			}});
 		}
 
-		const args = [];
-
-		for (const option of interaction.options.data) {
-			if (option.type === 1) {
-				if (option.name) args.push(option.name);
-				option.options?.forEach((x) => {
-					if (x.value) args.push(x.value);
-				});
-			} else if (option.value) args.push(option.value);
+		try {
+			return cmd.chatCommandHandler(interaction, cmdDeps);
+		} catch(err: unknown) {
+			logger.error(`Error executing slash command ${interaction.commandName}\n`, err);
 		}
-
-		if (interaction.guild) {
-			const member = interaction.guild.members.cache.get(interaction.user.id);
-			interaction.member = member ?? null;
-		}
-
-		cmd.run({
-			args: interaction.options as CommandInteractionOptionResolver,
-			client,
-			interaction: interaction as ExtendedInteraction
-		});
 	}
 
-	// Context Menu Handling
-	if (interaction.isUserContextMenuCommand()) {
-		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
-		const command = client.commands.get(interaction.commandName);
-		if (command) {
-			command.run({
-				args: interaction.options as CommandInteractionOptionResolver,
-				client,
-				interaction: interaction as ExtendedInteraction
-			});
+	if (interaction.isButton()) {
+		const commandName = interaction.customId.split('|')[0];
+		const cmd = d.client.slashCommands.get(commandName);
+		if (!cmd) {
+			return interaction.reply({ content: "Unable to resolve command name", options: {
+				flags: 'Ephemeral'
+			}});
+		}
+
+		try {
+			if(cmd.buttonHandler) return cmd.buttonHandler(interaction, cmdDeps);
+			else return;
+		} catch(err: unknown) {
+			logger.error(`Error executing button handler for ${commandName}\n`, err);
+		}
+	}
+
+	if(interaction.isUserContextMenuCommand()) {
+		const cmd = d.client.userContextMenuCommands.get(interaction.commandName);
+		if (!cmd) {
+			return interaction.reply({ content: "Unable to resolve command name", options: {
+				flags: 'Ephemeral'
+			}});
+		}
+
+		try {
+			return cmd.userContextMenuHandler(interaction, cmdDeps);
+		} catch(err: unknown) {
+			logger.error(`Error executing user context menu command ${interaction.commandName}\n`, err);
+		}
+	}
+
+	if(interaction.isMessageContextMenuCommand()) {
+		const cmd = d.client.messageContextMenuCommands.get(interaction.commandName);
+		if (!cmd) {
+			return interaction.reply({ content: "Unable to resolve command name", options: {
+				flags: 'Ephemeral'
+			}});
+		}
+
+		try {
+			return cmd.messageContextMenuHandler(interaction, cmdDeps);
+		} catch(err: unknown) {
+			logger.error(`Error executing message context menu command ${interaction.commandName}\n`, err);
 		}
 	}
 });
