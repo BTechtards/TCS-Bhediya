@@ -1,16 +1,16 @@
-import { SlashCommandBuilder } from "discord.js";
-import fs from "fs";
-import { logger } from "@/utils/logger";
+import fs from 'fs';
+import { logger } from '@/utils/logger';
+import { SlashCommandBuilder } from 'discord.js';
 
 function unlinkUsername(discordId) {
     try {
-        const data = fs.readFileSync("./links.json", "utf-8");
+        const data = fs.readFileSync('./links.json', 'utf-8');
         const links = JSON.parse(data);
 
         if (!links[discordId]) return false;
-        
+
         delete links[discordId];
-        fs.writeFileSync("./links.json", JSON.stringify(links, null, 2));
+        fs.writeFileSync('./links.json', JSON.stringify(links, null, 2));
         return true;
     } catch (err) {
         logger.error(`Error updating links.json: ${err}`);
@@ -20,15 +20,24 @@ function unlinkUsername(discordId) {
 
 export default {
     builder: new SlashCommandBuilder()
-        .setName("unlink")
-        .setDescription("Unlink your Codeforces account from your Discord account."),
+        .setName('unlink')
+        .setDescription(
+            'Unlink your Codeforces account from your Discord account.',
+        ),
     chatCommandHandler: async (interaction) => {
         const discordId = interaction.user.id;
-        
+
         if (unlinkUsername(discordId)) {
-            await interaction.reply({ content: "Your Codeforces account has been unlinked successfully.", ephemeral: true });
+            await interaction.reply({
+                content:
+                    'Your Codeforces account has been unlinked successfully.',
+                ephemeral: true,
+            });
         } else {
-            await interaction.reply({ content: "You don’t have a linked Codeforces account.", ephemeral: true });
+            await interaction.reply({
+                content: 'You don’t have a linked Codeforces account.',
+                ephemeral: true,
+            });
         }
     },
 };

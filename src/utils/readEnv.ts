@@ -18,8 +18,10 @@ export function readEnv(): Env {
     };
 
     const parseResult = envSchema.safeParse(maybeEnv);
-    if(!parseResult.success) {
-        throw new Error('Invalid environment variables', { cause: parseResult.error });
+    if (!parseResult.success) {
+        throw new Error('Invalid environment variables', {
+            cause: parseResult.error,
+        });
     }
 
     return parseResult.data;

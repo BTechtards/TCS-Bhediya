@@ -7,7 +7,9 @@
 		"dev": "tsx watch src/index.ts",
 		"build": "tsc && resolve-tspaths",
 		"start": "node .",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "tsc --noEmit",
+		"lint": "biome check --write src",
+		"lint:fix-unsafe": "biome check --write --fix --unsafe src"
 	},
 	"keywords": [
 		"discord-bot",
@@ -28,6 +30,7 @@
 		"zod": "^3.24.2"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
 		"@types/glob": "^8.1.0",
 		"@types/node": "^22.13.1",
 		"resolve-tspaths": "^0.8.23",
