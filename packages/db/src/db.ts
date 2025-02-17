@@ -2,11 +2,11 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import * as schema from './schema';
 
 export function getDB(conn?: {
-    user: string,
-    password: string,
-    host: string,
-    port: number,
-    database: string,
+    user: string;
+    password: string;
+    host: string;
+    port: number;
+    database: string;
 }) {
     return drizzle({
         connection: conn ?? {

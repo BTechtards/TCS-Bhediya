@@ -8,6 +8,7 @@ import type {
 // import { sendHook } from "@/utils/functions";
 import { logger } from '@/utils/logger';
 import type { Env } from '@/utils/readEnv';
+import type { getDB } from '@tcs-bhediya/db';
 import {
     type ApplicationCommandDataResolvable,
     Client,
@@ -18,6 +19,7 @@ import type { EventDependencies } from './event';
 
 export type BotConfig = {
     env: Env;
+    db: ReturnType<typeof getDB>;
 };
 
 export class Bot extends Client {
@@ -92,6 +94,7 @@ export class Bot extends Client {
     async registerEvents() {
         const evtDeps: EventDependencies = {
             client: this,
+            db: this.config.db,
         };
         events.forEach((evt) => {
             // @ts-expect-error TS is dumb and cant prove that this is correct

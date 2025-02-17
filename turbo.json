@@ -21,6 +21,11 @@
             "persistent": true,
             "cache": false
         },
+        "start": {
+            "dependsOn": [
+                "^build"
+            ]
+        },
         "db#migrate": {
             "dependsOn": []
         }

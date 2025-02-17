@@ -2,6 +2,7 @@
   "name": "tcs-bhediya-monorepo",
   "scripts": {
     "build:all": "turbo build",
+    "start:bot": "turbo start --filter=bot",
     "db:migrate": "turbo db#migrate",
     "dev": "turbo dev",
     "lint": "turbo lint",

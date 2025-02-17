@@ -5,6 +5,7 @@ import { logger } from '@/utils/logger';
 export default new Event('interactionCreate', (d) => async (interaction) => {
     const cmdDeps: CommandDependencies = {
         client: d.client,
+        db: d.db,
     };
 
     if (interaction.isChatInputCommand()) {

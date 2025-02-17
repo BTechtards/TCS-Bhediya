@@ -1,4 +1,7 @@
-import fs from 'fs';
+// ! Temporary until someone verifies/fixes aryan's code
+// @ts-nocheck
+
+import * as fs from 'node:fs';
 import { logger } from '@/utils/logger';
 import { SlashCommandBuilder } from 'discord.js';
 
@@ -32,7 +35,7 @@ export default {
                 'Your GitHub account has been unlinked successfully.',
             );
         } else {
-            await interaction.reply('You don’t have a linked GitHub account.');
+            await interaction.reply("You don't have a linked GitHub account.");
         }
     },
 };
