@@ -1,4 +1,5 @@
 import type { Bot } from '@/structures/client';
+import type { getDB } from '@tcs-bhediya/db';
 import type {
     ButtonInteraction,
     ChatInputCommandInteraction,
@@ -10,6 +11,7 @@ import type {
 
 export type CommandDependencies = {
     client: Bot;
+    db: ReturnType<typeof getDB>;
 };
 
 export interface SlashCommand {

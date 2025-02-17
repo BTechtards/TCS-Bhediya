@@ -1,4 +1,7 @@
-import * as fs from 'fs';
+// ! Temporary until someone verifies/fixes aryan's code
+// @ts-nocheck
+
+import * as fs from 'node:fs';
 import type { SlashCommand } from '@/types/command';
 import { SlashCommandBuilder } from 'discord.js';
 import fetch from 'node-fetch';

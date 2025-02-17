@@ -15,7 +15,8 @@ import { PostgresError } from 'postgres';
 //     "routine": "_bt_check_unique"
 // }
 
-export const isPgError = (err: unknown): err is PostgresError => err instanceof PostgresError;
+export const isPgError = (err: unknown): err is PostgresError =>
+    err instanceof PostgresError;
 
 // https://hackage.haskell.org/package/postgresql-error-codes-1.0.1/docs/PostgreSQL-ErrorCodes.html
 export const isFKeyViolation = (err: PostgresError) => err.code === '23503';

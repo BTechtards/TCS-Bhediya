@@ -18,4 +18,12 @@ Build the entire repo
 pnpm build:all
 ```
 
-For other commands see package.json
+Generate and apply migrations
+```sh
+pnpm db:migrate
+```
+
+Lint the entire project
+```sh
+pnpm lint
+```

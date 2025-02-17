@@ -1,4 +1,4 @@
-import { pgTable, timestamp, uuid, pgEnum, text } from 'drizzle-orm/pg-core';
+import { pgEnum, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 export const userIntegrationType = pgEnum('user_integration_type', [
     'codeforces',

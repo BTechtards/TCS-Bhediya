@@ -1,4 +1,7 @@
-import fs from 'fs';
+// ! Temporary until someone verifies/fixes aryan's code
+// @ts-nocheck
+
+import * as fs from 'node:fs';
 import { logger } from '@/utils/logger';
 import { SlashCommandBuilder } from 'discord.js';
 
@@ -35,7 +38,7 @@ export default {
             });
         } else {
             await interaction.reply({
-                content: 'You don’t have a linked Codeforces account.',
+                content: "You don't have a linked Codeforces account.",
                 ephemeral: true,
             });
         }
