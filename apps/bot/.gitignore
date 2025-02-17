@@ -1,0 +1,12 @@
+# Build outputs
+dist/
+
+# Node modules
+node_modules/
+
+# Local files
+data/
+.env*
+!.env.example
+*.local
+.DS_Store

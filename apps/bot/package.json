@@ -1,0 +1,40 @@
+{
+	"name": "bot",
+	"version": "1.0.0",
+	"description": "r/BTechTards Discord Bot",
+	"main": "dist/index.js",
+	"scripts": {
+		"dev": "tsx watch src/index.ts",
+		"build": "tsc && resolve-tspaths",
+		"start": "node .",
+		"typecheck": "tsc --noEmit",
+		"lint": "biome check --write src",
+		"lint:fix-unsafe": "biome check --write --fix --unsafe src"
+	},
+	"keywords": [
+		"discord-bot",
+		"djs"
+	],
+	"author": "sex team of btechtards",
+	"license": "ISC",
+	"dependencies": {
+		"axios": "^1.7.9",
+		"discord.js": "^14.17.3",
+		"dotenv": "^16.4.7",
+		"express": "^4.21.2",
+		"express-session": "^1.18.1",
+		"node-fetch": "^3.3.2",
+		"passport": "^0.7.0",
+		"passport-discord": "^0.1.4",
+		"winston": "^3.17.0",
+		"zod": "^3.24.2"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/glob": "^8.1.0",
+		"@types/node": "^22.13.1",
+		"resolve-tspaths": "^0.8.23",
+		"tsx": "^4.19.2",
+		"typescript": "^5.7.3"
+	}
+}

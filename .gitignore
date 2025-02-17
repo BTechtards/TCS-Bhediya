@@ -1,12 +1,6 @@
-# Build outputs
-dist/
-
-# Node modules
-node_modules/
-
-# Local files
-data/
-.env*
-!.env.example
+.DS_Store
+node_modules
+.turbo
 *.local
-
+.env
+.cache
