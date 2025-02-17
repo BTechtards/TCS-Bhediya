@@ -1,19 +1,37 @@
-import { ChatInputApplicationCommandData, CommandInteraction, PermissionResolvable, GuildMember, CommandInteractionOptionResolver } from "discord.js";
-import { Bot } from "../structures/client";
+import type { 
+	ButtonInteraction, ChatInputCommandInteraction, UserContextMenuCommandInteraction, 
+	SlashCommandBuilder, MessageContextMenuCommandInteraction, ContextMenuCommandBuilder
+} from 'discord.js';
+import type { Bot } from '@/structures/client';
 
-export interface ExtendedInteraction extends CommandInteraction {
-	member: GuildMember;
-}
-
-interface RunOptions {
+export type CommandDependencies = {
 	client: Bot,
-	interaction: CommandInteraction,
-	args: CommandInteractionOptionResolver
 }
 
-type RunFunction = (options: RunOptions) => unknown;
+export interface SlashCommand {
+	builder: SlashCommandBuilder;
+	chatCommandHandler: (
+		interaction: ChatInputCommandInteraction,
+		d: CommandDependencies,
+	) => unknown;
+	buttonHandler?: (
+		interaction: ButtonInteraction,
+		d: CommandDependencies,
+	) => unknown;
+}
 
-export type CommandType = {
-	userPermissions?: PermissionResolvable[];
-	run: RunFunction;
-} & ChatInputApplicationCommandData;
+export interface UserContextMenuCommand {
+	builder: ContextMenuCommandBuilder;
+	userContextMenuHandler: (
+		interaction: UserContextMenuCommandInteraction,
+		d: CommandDependencies,
+	) => unknown;
+}
+
+export interface MessageContextMenuCommand {
+	builder: ContextMenuCommandBuilder;
+	messageContextMenuHandler: (
+		interaction: MessageContextMenuCommandInteraction,
+		d: CommandDependencies,
+	) => unknown;
+}

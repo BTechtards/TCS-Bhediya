@@ -1,7 +1,7 @@
 import { createLogger, format, transports } from "winston";
 const colorizer = format.colorize();
 
-const log = createLogger({
+export const logger = createLogger({
 	format: format.combine(
 		format.timestamp({ format: "YYYY-MM-DD HH:mm" }),
 		format.simple(),
@@ -14,5 +14,3 @@ const log = createLogger({
 	),
 	transports: [new transports.Console()],
 });
-
-export default log;

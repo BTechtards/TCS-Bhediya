@@ -1,97 +1,85 @@
-import { ApplicationCommandDataResolvable, Client, ClientOptions, Collection, ClientEvents } from "discord.js";
-import { glob } from "glob";
-import { CommandType } from "../types/command";
-import { RegisterCommandsOptions } from "../types/client";
-import { sendHook } from "../utils/functions";
-import { Event } from "./event";
-import log from "../utils/logger";
+import { ApplicationCommandDataResolvable, Client, ClientOptions, Collection } from "discord.js";
+import { MessageContextMenuCommand, SlashCommand, UserContextMenuCommand } from "@/types/command";
+// import { sendHook } from "@/utils/functions";
+import { logger } from "@/utils/logger";
+import { Env } from '@/utils/readEnv';
+import slashCommands from '@/slash-commands';
+import events from '@/events';
+
+export type BotConfig = {
+	env: Env,
+}
 
 export class Bot extends Client {
-	public commands: Collection<string, CommandType> = new Collection();
+	slashCommands: Collection<string, SlashCommand> = new Collection();
+	userContextMenuCommands: Collection<string, UserContextMenuCommand> = new Collection();
+	messageContextMenuCommands: Collection<string, MessageContextMenuCommand> = new Collection();
 
-	constructor(options: ClientOptions) {
-		super(options);
+	constructor(public config: BotConfig, clientOptions: ClientOptions) {
+		super(clientOptions);
 	}
 
-	start() {
-		this.registerModules();
-		this.login(process.env.TOKEN);
+	async start() {
+		await this.registerCommands();
+		await this.registerEvents();
+		this.login(this.config.env.DISCORD_TOKEN);
 	}
 
+	setup_error_hook() {
+		// ! Bad practice
+		// let error_hook: string;
 
-	async importFile(filePath: string) {
-		return (await import(filePath))?.default;
+		// if (process.env.ERROR_LOG) {
+		// 	error_hook = process.env.ERROR_LOG;
+		// } else {
+		// 	log.error("error log webhook url not given!");
+		// 	process.exit();
+		// }
+
+		// process.on("uncaughtException", (err) => {
+		// 	log.error(err.stack);
+		// 	sendHook(
+		// 		error_hook,
+		// 		"uncaughtException",
+		// 		"```" + err.stack + "```",
+		// 		this.user!.username,
+		// 		this.user!.displayAvatarURL(),
+		// 	);
+		// });
 	}
 
-	async registerCommands({ commands, guildId }: RegisterCommandsOptions) {
-		log.info("Loading application (/) commands.");
+	async registerCommands() {
+		const slashCommandsData: ApplicationCommandDataResolvable[] = [];
 
-		if (guildId) {
-			log.info(`Setting slash commands in ${process.env.GUILD_ID}`);
-			this.guilds.cache.get(guildId)?.commands.set(commands);
-		} else {
-			log.error("Put a valid GUILD_ID in .env");
-			process.exit();
-		}
-
-		log.info("Finished loading application (/) commands.");
-
-	}
-
-	async setup_error_hook() {
-		let error_hook: string;
-
-		if (process.env.ERRORLOG) {
-			error_hook = process.env.ERRORLOG;
-		} else {
-			log.error("error log webhook url not given!");
-			process.exit();
-		}
-
-		process.on("uncaughtException", (err) => {
-			log.error(err.stack);
-			sendHook(
-				error_hook,
-				"uncaughtException",
-				"```" + err.stack + "```",
-				this.user!.username,
-				this.user!.displayAvatarURL(),
-			);
-		});
-	}
-
-	async registerModules() {
-		// commands
-		const slashCommands: ApplicationCommandDataResolvable[] = [];
-
-		const commandFiles = await glob(
-			`${__dirname}/../commands/*/*{.ts,.js}`
-		);
-
-		commandFiles.forEach(async (filePath: string) => {
-			const command: CommandType = await this.importFile(filePath);
-			if (!command?.name) return;
-
-			log.info(`Loaded command "${command.name}".`);
-			this.commands.set(command.name, command);
-			slashCommands.push(command);
+		slashCommands.forEach(command => {
+			logger.info(`Loaded command ${command.builder.name} ✅`);
+			this.slashCommands.set(command.builder.name, command);
+			slashCommandsData.push(command.builder.toJSON());
 		});
 
-		this.on("ready", async () => {
-			this.registerCommands({
-				commands: slashCommands,
-				guildId: process.env.GUILD_ID
-			});
+		this.once("ready", async () => {
+			const guildId = this.config.env.DEV_GUILD_ID; 
+
+			logger.info("Loading application (/) commands.");
+
+			// ? Dont you need to register the commands with discord
+			if (guildId) {
+				logger.info(`Setting slash commands in ${guildId}`);
+				this.guilds.cache.get(guildId)?.commands.set(slashCommandsData);
+			} else {
+				logger.error("Put a valid DEV_GUILD_ID in .env");
+				process.exit();
+			}
+
+			logger.info("Finished loading application (/) commands.");
 			this.setup_error_hook();
 		});
+	}
 
-		// events
-		const eventFiles = await glob(
-			`${__dirname}/../events/*{.ts,.js}`
-		);
-		eventFiles.forEach(async (filePath: string) => {
-			const event: Event<keyof ClientEvents> = await this.importFile(filePath);
-			this.on(event.event, event.run);
+	async registerEvents() {
+		events.forEach(evt => {
+			// @ts-expect-error TS is dumb and cant prove that this is correct
+			this.on(evt.name, evt.handler);
 		});
 	}
 }
