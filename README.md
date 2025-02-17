@@ -1,4 +1,4 @@
-# TCS Ninja
+# TCS Bhediya
 
 ```
 pnpm install
