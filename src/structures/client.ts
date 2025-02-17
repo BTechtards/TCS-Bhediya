@@ -5,6 +5,7 @@ import { logger } from "@/utils/logger";
 import { Env } from '@/utils/readEnv';
 import slashCommands from '@/slash-commands';
 import events from '@/events';
+import { type EventDependencies } from './event';
 
 export type BotConfig = {
 	env: Env,
@@ -77,9 +78,12 @@ export class Bot extends Client {
 	}
 
 	async registerEvents() {
+		const evtDeps: EventDependencies = {
+			client: this,
+		};
 		events.forEach(evt => {
 			// @ts-expect-error TS is dumb and cant prove that this is correct
-			this.on(evt.name, evt.handler);
+			this.on(evt.name, evt.handler(evtDeps));
 		});
 	}
 }
