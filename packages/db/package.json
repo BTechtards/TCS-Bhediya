@@ -1,0 +1,21 @@
+{
+	"name": "db",
+	"version": "1.0.0",
+	"private": "true",
+	"scripts": {
+		"push": "drizzle-kit push",
+		"migrate": "drizzle-kit generate && drizzle-kit migrate",
+		"typecheck": "tsc --noEmit",
+		"lint": "biome check --write src",
+		"lint:fix-unsafe": "biome check --write --fix --unsafe src"
+	},
+	"dependencies": {
+		"dotenv": "^16.4.7",
+		"drizzle-orm": "^0.39.3",
+		"postgres": "^3.4.5"
+	},
+	"devDependencies": {
+		"@types/node": "^22.13.1",
+		"drizzle-kit": "^0.30.4"
+	}
+}
