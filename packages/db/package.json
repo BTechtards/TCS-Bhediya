@@ -11,6 +11,10 @@
 		"./utils": {
 			"types": "./dist/utils/pg-error.d.ts",
 			"default": "./dist/utils/pg-error.js"
+		},
+		"./schema": {
+			"types": "./dist/schema/index.d.ts",
+			"default": "./dist/schema/index.js"
 		}
 	},
 	"scripts": {
