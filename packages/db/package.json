@@ -4,14 +4,18 @@
 	"version": "1.0.0",
 	"private": "true",
 	"exports": {
-		".": {
-			"types": "./dist/db.d.ts",
-			"default": "./dist/db.js"
-		},
-		"./utils": {
-			"types": "./dist/utils/pg-error.d.ts",
-			"default": "./dist/utils/pg-error.js"
-		}
+    ".": {
+        "types": "./dist/db.d.ts",
+        "default": "./dist/db.js"
+    },
+    "./utils": {
+        "types": "./dist/utils/pg-error.d.ts",
+        "default": "./dist/utils/pg-error.js"
+    },
+    "./schema": {
+        "types": "./dist/schema/index.d.ts",
+        "default": "./dist/schema/index.js"
+    }
 	},
 	"scripts": {
 		"build": "tsup",
