@@ -10,4 +10,5 @@ export const userIntegrations = pgTable('user_integrations', {
     userId: text('user_id').notNull(),
     type: userIntegrationType('type').notNull(),
     createdAt: timestamp('created_at').notNull().defaultNow(),
+    externalId: text('external_id').notNull()
 });

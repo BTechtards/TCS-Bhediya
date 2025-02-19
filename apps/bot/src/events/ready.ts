@@ -1,18 +1,19 @@
-import { Event } from '@/structures/event';
-import { getRedditStats } from '@/utils/functions';
-import { logger } from '@/utils/logger';
-import { ActivityType } from 'discord.js';
+import { Event } from "@/structures/event";
+import { getRedditStats } from "@/utils/functions";
+import { logger } from "@/utils/logger";
+import { ActivityType } from "discord.js";
+import { userIntegrations } from "@tcs-bhediya/db/schema";
 
 function formatNumber(num: number): string {
     const formatted = (num / 1000).toFixed(1);
     return num >= 1000
-        ? formatted.endsWith('.0')
-            ? formatted.slice(0, -2) + 'k'
-            : formatted + 'k'
+        ? formatted.endsWith(".0")
+            ? formatted.slice(0, -2) + "k"
+            : formatted + "k"
         : num.toString();
 }
 
-export default new Event('ready', (d) => async (client) => {
+export default new Event("ready", (d) => async (client) => {
     logger.info(`Logged in as ${client.user?.tag}`);
 
     let memberCount = 0;
@@ -38,7 +39,7 @@ export default new Event('ready', (d) => async (client) => {
         client.user?.setActivity({
             name: text,
             type: ActivityType.Streaming,
-            url: 'https://twitch.tv/btechtards', // Replace with an actual streaming URL
+            url: "https://twitch.tv/btechtards", // Replace with an actual streaming URL
         });
     }, 30000); // milliseconds
 });

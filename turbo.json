@@ -26,7 +26,7 @@
                 "^build"
             ]
         },
-        "db#migrate": {
+        "migrate": {
             "dependsOn": []
         }
     }

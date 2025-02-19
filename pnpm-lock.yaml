@@ -18,7 +18,7 @@ importers:
   apps/bot:
     dependencies:
       '@tcs-bhediya/db':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../packages/db
       axios:
         specifier: ^1.7.9
@@ -29,12 +29,18 @@ importers:
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
+      drizzle-orm:
+        specifier: ^0.39.3
+        version: 0.39.3(postgres@3.4.5)
       express:
         specifier: ^4.21.2
         version: 4.21.2
       express-session:
         specifier: ^1.18.1
         version: 1.18.1
+      i:
+        specifier: ^0.3.7
+        version: 0.3.7
       node-fetch:
         specifier: ^3.3.2
         version: 3.3.2
@@ -1420,6 +1426,10 @@ packages:
   http-errors@2.0.0:
     resolution: {integrity: sha512-FtwrG/euBzaEjYeRqOgly7G0qviiXoJWnvEH2Z1plBdXgbyjv34pHTSb9zoeHMyDy33+DWy5Wt9Wo+TURtOYSQ==}
     engines: {node: '>= 0.8'}
+
+  i@0.3.7:
+    resolution: {integrity: sha512-FYz4wlXgkQwIPqhzC5TdNMLSE5+GS1IIDJZY/1ZiEPCT2S3COUVZeT5OW4BmW4r5LHLQuOosSwsvnroG9GR59Q==}
+    engines: {node: '>=0.4'}
 
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -3042,6 +3052,8 @@ snapshots:
       setprototypeof: 1.2.0
       statuses: 2.0.1
       toidentifier: 1.0.1
+
+  i@0.3.7: {}
 
   iconv-lite@0.4.24:
     dependencies:
