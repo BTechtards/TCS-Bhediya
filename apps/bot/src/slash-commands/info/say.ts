@@ -1,5 +1,12 @@
 import type { SlashCommand } from "@/types/command";
-import { SlashCommandBuilder } from "discord.js";
+import { logger } from "@/utils/logger";
+import { SlashCommandBuilder, WebhookClient } from "discord.js";
+import { config } from "dotenv";
+
+config();
+
+const logWebhookUrl = process.env.DISCORD_WEBHOOK_URL;
+const webhookClient = logWebhookUrl ? new WebhookClient({ url: logWebhookUrl }) : null;
 
 export default {
     builder: new SlashCommandBuilder()
@@ -8,17 +15,17 @@ export default {
         .addStringOption(option =>
             option.setName("message")
                 .setDescription("The message to send")
-                .setRequired(true) // Required option comes first
+                .setRequired(true)
         )
         .addStringOption(option =>
             option.setName("messageid")
                 .setDescription("The ID of the message to reply to (optional)")
-                .setRequired(false) // Optional comes after
+                .setRequired(false)
         ),
 
     chatCommandHandler: async (interaction, { client }) => {
         const requiredRoleId = "1340728482329788529";
-        const channelId = "1273909038056476714";
+        const channelId = interaction.channelId;
 
         if (!interaction.member || !interaction.member.roles.cache.has(requiredRoleId)) {
             return interaction.reply({
@@ -29,6 +36,9 @@ export default {
 
         const messageId = interaction.options.getString("messageid");
         const replyMessage = interaction.options.getString("message", true);
+
+        logger.info(interaction.user.displayName);
+        logger.info(replyMessage);
 
         try {
             const channel = await client.channels.fetch(channelId);
@@ -57,6 +67,36 @@ export default {
                 content: "✅ Your message has been sent!",
                 ephemeral: true
             });
+// 
+            if (webhookClient) {
+                const logEmbed = {
+                    description: `A message was sent using the \`/say\` command.`,
+                    color: 0x5865F2,
+                    fields: [
+                        {
+                            name: "Original Author: ",
+                            value: `<@${interaction.user.id}>`,
+                            inline: true,
+                        },
+                        {
+                            name: "Channel Posted:",
+                            value: `<#${channelId}>`,
+                            inline: true,
+                        },
+                        {
+                            name: "Message: ",
+                            value: `${replyMessage}`,
+                        },
+                    ],
+                    timestamp: new Date().toISOString(),
+                    footer: {
+                        text: `Username: ${interaction.user.displayName}`,
+                        icon_url: interaction.user.displayAvatarURL(),
+                    },
+                };
+
+                webhookClient.send({ embeds: [logEmbed] });
+            }
 
         } catch (error) {
             console.error("Error in /say command:", error);

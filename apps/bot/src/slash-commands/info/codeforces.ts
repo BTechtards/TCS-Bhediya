@@ -116,10 +116,15 @@ export default {
             subcommand
                 .setName('stats')
                 .setDescription('Get your Codeforces profile stats')
+                .addStringOption(option =>
+                    option.setName('member')
+                        .setDescription('Fetch stats of a specific member')
+                        .setRequired(false)
+                )
         ),
 
     chatCommandHandler: async (interaction, { client, db }) => {
-        const discordId = interaction.user.id;
+        let discordId = interaction.user.id;
 // 
         try {
             if (interaction.options.getSubcommand() === 'link') {
@@ -237,6 +242,17 @@ export default {
                     content: "Your Codeforces account has been successfully unlinked.",
                 });
             } else if (interaction.options.getSubcommand() === 'stats') {
+                const member = interaction.options.getString('member');
+                member?.replace("<@", "");
+                member?.replace(">", "");
+
+                let flag = false;
+
+                if (member !== null){
+                    discordId = member;
+                    flag = true;
+                };
+
                 await interaction.deferReply();
                 const rows = await db
                     .select()
@@ -249,11 +265,16 @@ export default {
                     );
             
                 if (rows.length === 0) {
-                    await interaction.editReply({
-                        content:
-                            "You haven't linked your Codeforces account yet. Please link your account first.",
-                    });
-                    return;
+                    if (flag) {
+                        await interaction.editReply("They haven't linked their Codeforces account yet.")
+                        return;
+                    } else {
+                        await interaction.editReply({
+                            content:
+                                "You haven't linked your Codeforces account yet. Please link your account first.",
+                        });
+                        return;
+                    }
                 }
                 
                 const username = rows[0].externalId;
