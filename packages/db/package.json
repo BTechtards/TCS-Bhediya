@@ -15,7 +15,7 @@
     "./schema": {
         "types": "./dist/schema/index.d.ts",
         "default": "./dist/schema/index.js"
-    }
+    },
 	},
 	"scripts": {
 		"build": "tsup",
