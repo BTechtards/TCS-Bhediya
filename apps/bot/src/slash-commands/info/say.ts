@@ -37,9 +37,6 @@ export default {
         const messageId = interaction.options.getString("messageid");
         const replyMessage = interaction.options.getString("message", true);
 
-        logger.info(interaction.user.displayName);
-        logger.info(replyMessage);
-
         try {
             const channel = await client.channels.fetch(channelId);
             if (!channel || !channel.isTextBased()) {
