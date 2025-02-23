@@ -3,7 +3,7 @@
   "scripts": {
     "build:all": "turbo build",
     "start:bot": "turbo start --filter=bot",
-    "db:migrate": "turbo db#migrate",
+    "db:migrate": "turbo migrate",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "clean": "turbo clean && rm -rf node_modules"

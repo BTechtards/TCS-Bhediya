@@ -1,0 +1,1 @@
+ALTER TABLE "user_integrations" ADD COLUMN "external_id" text NOT NULL;
