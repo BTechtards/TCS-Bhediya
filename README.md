@@ -1,3 +1,6 @@
+> [!IMPORTANT]  
+> This project is currently abandoned, we might start working on it in the future again. 
+
 Examples for common monorepo tasks:
 
 Install a dependency in a specific app (or package)
